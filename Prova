@@ -1,2 +1,1 @@
-Edit prova [nema]
-Ciao
+system.out.println("Hello World!")
