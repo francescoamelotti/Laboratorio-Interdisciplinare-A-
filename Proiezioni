@@ -18,3 +18,12 @@ public Proiezione(String dataOraProiezione, String titolo, String genere, String
         this.etaMinimaPubblico = etaMinimaPubblico;
         this.costoBiglietto = costoBiglietto;
     }
+
+    public String getDataOraProiezione() { return dataOraProiezione; }
+    public String getTitolo() { return titolo; }
+    public String getGenere() { return genere; }
+    public String getRegista() { return regista; }
+    public int getAnno() { return anno; }
+    public int getDurataMinuti() { return durataMinuti; }
+    public int getEtaMinimaPubblico() { return etaMinimaPubblico; }
+    public double getCostoBiglietto() { return costoBiglietto; }
