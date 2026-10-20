@@ -1,1 +1,20 @@
+class Proiezione {
+  private String dataOraProiezione;
+  private String titolo;
+  private String genere;
+  private String regista;
+  private int anno;
+  private int durataMinuti;
+  private int etaMinimaPubblico;
+  private double costoBiglietto;
 
+public FilmProiezione(String dataOraProiezione, String titolo, String genere, String regista, int anno, int durataMinuti, int etaMinimaPubblico, double costoBiglietto) {
+        this.dataOraProiezione = dataOraProiezione;
+        this.titolo = titolo;
+        this.genere = genere;
+        this.regista = regista;
+        this.anno = anno;
+        this.durataMinuti = durataMinuti;
+        this.etaMinimaPubblico = etaMinimaPubblico;
+        this.costoBiglietto = costoBiglietto;
+    }
