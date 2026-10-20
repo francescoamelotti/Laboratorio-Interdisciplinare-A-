@@ -1,13 +1,22 @@
-public class Utenti {
+﻿import java.util.ArrayList;
+import java.util.List;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.time.LocalDate;
+
+package cinemax;
+
+public class Utente {
     private String nome;
     private String cognome;
     private String username;
-    private int password;
+    private String password;
     private LocalDate dataNascita;
     private String domicilio;
     private String ruolo;
 
-    public Utenti(String nome, String cognome, String username, int password, LocalDate dataNascita, String domicilio, String ruolo) {
+    public Utente(String nome, String cognome, String username, String password, LocalDate dataNascita, String domicilio, String ruolo) {
         this.nome = nome;
         this.cognome = cognome;
         this.username = username;
@@ -41,11 +50,11 @@ public class Utenti {
         this.username = username;
     }
 
-    public int getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(int password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
@@ -74,4 +83,85 @@ public class Utenti {
         this.ruolo = ruolo;
     }
 
+
+public class GestoreDiUtenti {
+
+    public static List<Utente> caricaUtentiDaCSV(String filePercorso) {
+        List<Utente> utenti = new ArrayList<>();
+        String riga;
+        boolean primaRiga = true;
+
+        try (BufferedReader br = new BufferedReader(new FileReader(filePercorso))) {
+
+            while ((riga = br.readLine()) != null) {
+                
+                if (primaRiga) {
+                    primaRiga = false;
+                    continue;
+                }
+
+                if (riga.trim().isEmpty()) {
+                    continue;
+                }
+
+                // Stesso split del tuo amico (con la virgola corretta e -1 per mantenere i campi vuoti come la data facoltativa)
+                String[] dati = riga.split(",(?=(?:[^"]*\"[^"]*\")*[^"]*$), -1);
+
+                if (dati.length == 7) {
+                    try {
+                        String nome = pulisciStringa(dati[0]);
+                        String cognome = pulisciStringa(dati[1]);
+                        String username = pulisciStringa(dati[2]);
+                        String password = pulisciStringa(dati[3]);
+                        
+                        // La data di nascita è facoltativa! Se è vuota mettiamo null
+                        String dataStringa = pulisciStringa(dati[4]);
+                        LocalDate dataNascita = null;
+                        if (!dataStringa.isEmpty()) {
+                            dataNascita = LocalDate.parse(dataStringa); // Formato YYYY-MM-DD
+                        }
+
+                        String domicilio = pulisciStringa(dati[5]);
+                        String ruolo = pulisciStringa(dati[6]);
+
+                        utenti.add(new Utente(nome, cognome, username, password, dataNascita, domicilio, ruolo));
+
+                    } catch (Exception e) {
+                        System.err.println("Riga utente malformata saltata: " + riga);
+                    }
+                } else {
+                    System.err.println("Numero di campi errato nella riga: " + riga);
+                }
+            }
+
+        } catch (IOException e) {
+            System.err.println("Errore critico di lettura file utenti: " + e.getMessage());
+        }
+
+        return utenti;
+    }
+
+    
+    public static void salvaNuovoUtenteSuCSV(String filePercorso, Utente nuovoUtente) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePercorso, true))) {
+            String dataStr = (nuovoUtente.getDataNascita() != null) ? nuovoUtente.getDataNascita().toString() : "";
+
+            String rigaCsv = nuovoUtente.getNome() + "," +
+                             nuovoUtente.getCognome() + "," +
+                             nuovoUtente.getUsername() + "," +
+                             nuovoUtente.getPassword() + "," +
+                             dataStr + "," +
+                             nuovoUtente.getDomicilio() + "," +
+                             nuovoUtente.getRuolo();
+                bw.write(rigaCsv);
+            bw.newLine();
+        } catch (IOException e) {
+            System.err.println("Errore critico di scrittura file utenti: " + e.getMessage());
+        }
+    }
+
+    private static String pulisciStringa(String input) {
+        if (input == null) return "";
+        return input.trim().replace("\"", "");
+    }
 }
