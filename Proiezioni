@@ -1,3 +1,9 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 class Proiezione {
   private String dataOraProiezione;
   private String titolo;
@@ -19,7 +25,7 @@ public Proiezione(String dataOraProiezione, String titolo, String genere, String
         this.costoBiglietto = costoBiglietto;
     }
 
-    public String getDataOraProiezione() { return dataOraProiezione; }
+public String getDataOraProiezione() { return dataOraProiezione; }
     public String getTitolo() { return titolo; }
     public String getGenere() { return genere; }
     public String getRegista() { return regista; }
@@ -27,3 +33,53 @@ public Proiezione(String dataOraProiezione, String titolo, String genere, String
     public int getDurataMinuti() { return durataMinuti; }
     public int getEtaMinimaPubblico() { return etaMinimaPubblico; }
     public double getCostoBiglietto() { return costoBiglietto; }
+}
+
+public class GestoreDiProiezioni {
+
+    public static void main(String[] args) {
+        String percorsoFile = "proiezioni.csv"; 
+        List<Proiezione> listaProiezioni = caricaProiezioniDaCSV(percorsoFile);
+    }
+
+    public static List<FilmProiezione> caricaProiezioniDaCSV(String filePercorso) {
+        List<FilmProiezione> proiezioni = new ArrayList<>();
+        String riga;
+        String separatoreCsv = ","; 
+        boolean primaRiga = true;   
+
+        try (BufferedReader br = new BufferedReader(new FileReader(filePercorso))) {
+            
+            while ((riga = br.readLine()) != null) {
+                if (primaRiga) {
+                    primaRiga = false; 
+                    continue;
+                }
+
+                String[] dati = riga.split("(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+
+                if (dati.length == 8) {
+                    try {
+                        String dataOra = pulisciStringa(dati[0]); 
+                        String titolo = pulisciStringa(dati[1]);
+                        String genere = pulisciStringa(dati[2]);
+                        String regista = pulisciStringa(dati[3]);
+                        int anno = Integer.parseInt(pulisciStringa(dati[4]));
+                        int durata = Integer.parseInt(pulisciStringa(dati[5]));
+                        int etaMinima = Integer.parseInt(pulisciStringa(dati[6]));
+                        double costo = Double.parseDouble(pulisciStringa(dati[7]));
+
+                        proiezioni.add(new FilmProiezione(dataOra, titolo, genere, regista, anno, durata, etaMinima, costo));
+                        
+                        } catch (Exception e) 
+      {
+          System.err.println("Riga malformata saltata: " + riga);
+      }
+      
+      } catch (IOException e) 
+      {
+            System.err.println("Errore critico di lettura file: " + e.getMessage());
+      }
+
+        return proiezioni;
+}
