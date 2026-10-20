@@ -104,7 +104,7 @@ public class GestoreDiUtenti {
                     continue;
                 }
 
-                String[] dati = riga.split(",(?=(?:[^"]*\"[^"]*\")*[^"]*$), -1);
+                String[] dati = riga.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
                 if (dati.length == 7) {
                     try {
