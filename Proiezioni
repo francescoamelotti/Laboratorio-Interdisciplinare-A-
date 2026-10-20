@@ -1,1 +1,29 @@
+class Proiezione {
+  private String dataOraProiezione;
+  private String titolo;
+  private String genere;
+  private String regista;
+  private int anno;
+  private int durataMinuti;
+  private int etaMinimaPubblico;
+  private double costoBiglietto;
 
+public Proiezione(String dataOraProiezione, String titolo, String genere, String regista, int anno, int durataMinuti, int etaMinimaPubblico, double costoBiglietto) {
+        this.dataOraProiezione = dataOraProiezione;
+        this.titolo = titolo;
+        this.genere = genere;
+        this.regista = regista;
+        this.anno = anno;
+        this.durataMinuti = durataMinuti;
+        this.etaMinimaPubblico = etaMinimaPubblico;
+        this.costoBiglietto = costoBiglietto;
+    }
+
+    public String getDataOraProiezione() { return dataOraProiezione; }
+    public String getTitolo() { return titolo; }
+    public String getGenere() { return genere; }
+    public String getRegista() { return regista; }
+    public int getAnno() { return anno; }
+    public int getDurataMinuti() { return durataMinuti; }
+    public int getEtaMinimaPubblico() { return etaMinimaPubblico; }
+    public double getCostoBiglietto() { return costoBiglietto; }
