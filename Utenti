@@ -104,7 +104,6 @@ public class GestoreDiUtenti {
                     continue;
                 }
 
-                // Stesso split del tuo amico (con la virgola corretta e -1 per mantenere i campi vuoti come la data facoltativa)
                 String[] dati = riga.split(",(?=(?:[^"]*\"[^"]*\")*[^"]*$), -1);
 
                 if (dati.length == 7) {
@@ -114,11 +113,11 @@ public class GestoreDiUtenti {
                         String username = pulisciStringa(dati[2]);
                         String password = pulisciStringa(dati[3]);
                         
-                        // La data di nascita è facoltativa! Se è vuota mettiamo null
+                        
                         String dataStringa = pulisciStringa(dati[4]);
                         LocalDate dataNascita = null;
                         if (!dataStringa.isEmpty()) {
-                            dataNascita = LocalDate.parse(dataStringa); // Formato YYYY-MM-DD
+                            dataNascita = LocalDate.parse(dataStringa); 
                         }
 
                         String domicilio = pulisciStringa(dati[5]);
