@@ -8,7 +8,7 @@ class Proiezione {
   private int etaMinimaPubblico;
   private double costoBiglietto;
 
-public FilmProiezione(String dataOraProiezione, String titolo, String genere, String regista, int anno, int durataMinuti, int etaMinimaPubblico, double costoBiglietto) {
+public Proiezione(String dataOraProiezione, String titolo, String genere, String regista, int anno, int durataMinuti, int etaMinimaPubblico, double costoBiglietto) {
         this.dataOraProiezione = dataOraProiezione;
         this.titolo = titolo;
         this.genere = genere;
