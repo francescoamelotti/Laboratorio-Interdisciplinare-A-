@@ -7,18 +7,54 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Cinemax {
+public class CineMax {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
         
-        System.out.println("Benvenuto al Cinemax!\nPremere 1 per accedere al proprio account,\n premere 2 per registrarsi,\n premere 3 per accedere come ospite,\n premere 0 per uscire: ");
+        System.out.println("Benvenuto al Cinemax!\nPremere 1 per accedere al proprio account,\nPremere 2 per registrarsi,\nPremere 3 per accedere come ospite,\nPremere 0 per uscire: ");
         int scelta = scanner.nextInt();
 
-        while (scelta != 0) {
+        do {
             switch (scelta) {
                 case 1:
                     GestoreDiUtenti.gestisciLogin();
+
+                    if (GestoreDiUtenti.getRuolo().equals("cliente")) {
+                        System.out.println("Accesso come cliente. Benvenuto!\nPremere 1 per cercare proiezioni, \nPremere 2 per visualizzare i dettagli delle proiezioni, \nPremere 3 per inserire una prenotazione, \nPremere 4 per visualizzare le prenotazioni, \nPremere 5 per modificare una prenotazione, \nPremere 6 per cancellare una prenotazione, \nPremere 0 per uscire: ");
+
+                        int sceltaCliente = scanner.nextInt();
+                        do {
+                            switch (sceltaCliente) {
+                                case 1:
+                                    GestoreDiProiezioni.ricercaProiezioni();
+                                    break;
+                                case 2:
+                                    GestoreDiProiezioni.visualizzaDettagliProiezioni();
+                                break;
+                                case 3:
+                                    GestoreDiPrenotazioni.inserisciPrenotazione();
+                                    break;
+                                case 4:
+                                    GestoreDiPrenotazioni.visualizzaPrenotazioni();
+                                    break;
+                                case 5:
+                                    GestoreDiPrenotazioni.modificaPrenotazione();
+                                    break;
+                                case 6:
+                                    GestoreDiPrenotazioni.cancellaPrenotazione();
+                                    break;
+                                case 0:
+                                    System.out.println("Uscita dal programma.");
+                                    break;
+                                default:
+                                    System.out.println("Scelta non valida. Inserire una scelta valida.");
+                                    break;
+                            }
+                        } while (sceltaCliente != 0);
+
+        
+        scanner.close();
                     break;
                 case 2:
                     GestoreDiUtenti.gestisciRegistrazione();
@@ -28,17 +64,14 @@ public class Cinemax {
                 break;
             case 0:
                 System.out.println("Uscita dal programma.");
-                return;
+                break;
             default:
                 System.out.println("Scelta non valida. Inserire una scelta valida.");
                 break;
-        }
+        } while (scelta != 0);
 
-
-        
-        
-        scanner.close();
 
     }
 
     
+

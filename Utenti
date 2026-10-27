@@ -159,4 +159,29 @@ public class GestoreDiUtenti {
         if (input == null) return "";
         return input.trim().replace("\"", "");
     }
+
+    public static void gestisciLogin() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Inserisci username: ");
+        String username = scanner.nextLine();
+        System.out.print("Inserisci password: ");
+        String password = scanner.nextLine();
+
+        List<Utente> utenti = caricaUtentiDaCSV("utenti.csv");
+        boolean loginRiuscito = false;
+
+        for (Utente utente : utenti) {
+            if (utente.getUsername().equals(username) && utente.getPassword().equals(password)) {
+                System.out.println("Login riuscito!\n Benvenuto, " + utente.getNome() + " " + utente.getCognome() + ".");
+                loginRiuscito = true;
+                break;
+            }
+        }
+
+        if (!loginRiuscito) {
+            System.out.println("Username o password errati. Riprova.");
+        }
+    }
+
+    scanner.close();
 }
