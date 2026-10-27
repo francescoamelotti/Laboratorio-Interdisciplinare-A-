@@ -56,7 +56,7 @@ public class GestoreDiProiezioni {
                     continue;
                 }
 
-                String[] dati = riga.split("(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+                String[] dati = riga.split("(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
                 if (dati.length == 8) {
                     try {
