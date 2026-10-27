@@ -1,1 +1,44 @@
+package cinemax;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
+
+public class Cinemax {
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.println("Benvenuto al Cinemax!\nPremere 1 per accedere al proprio account,\n premere 2 per registrarsi,\n premere 3 per accedere come ospite,\n premere 0 per uscire: ");
+        int scelta = scanner.nextInt();
+
+        while (scelta != 0) {
+            switch (scelta) {
+                case 1:
+                    GestoreDiUtenti.gestisciLogin();
+                    break;
+                case 2:
+                    GestoreDiUtenti.gestisciRegistrazione();
+                    break;
+                case 3:
+                    System.out.println("Accesso come ospite. Alcune funzionalità potrebbero essere limitate.");
+                break;
+            case 0:
+                System.out.println("Uscita dal programma.");
+                return;
+            default:
+                System.out.println("Scelta non valida. Inserire una scelta valida.");
+                break;
+        }
+
+
+        
+        
+        scanner.close();
+
+    }
+
+    
