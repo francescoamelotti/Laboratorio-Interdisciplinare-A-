@@ -56,7 +56,7 @@ public class GestoreDiProiezioni {
                     continue;
                 }
 
-                String[] dati = riga.split("(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+                String[] dati = riga.split("(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1); 
 
                 if (dati.length == 8) {
                     try {
@@ -82,4 +82,27 @@ public class GestoreDiProiezioni {
       }
 
         return proiezioni;
+}
+
+public static void ScirviNuovaProiezioneSuCSV(String filePercorso, FilmProiezione nuovaProiezione) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePercorso, true))) {
+            String rigaCsv = nuovaProiezione.getDataOra() + "," +
+                             nuovaProiezione.getTitolo() + "," +
+                             nuovaProiezione.getGenere() + "," +
+                             nuovaProiezione.getRegista() + "," +
+                             String.valueOf(nuovaProiezione.getAnno()) + "," +
+                             String.valueOf(nuovaProiezione.getDurata()) + "," +
+                             String.valueOf(nuovaProiezione.getEtaMinima()) + "," +
+                             String.valueOf(nuovaProiezione.getCosto());
+            bw.write(rigaCsv);
+            bw.newLine();
+        } catch (IOException e) {
+            System.err.println("Errore critico di scrittura file proiezioni: " + e.getMessage());
+        }
+    }
+
+    private static String pulisciStringa(String input) { // Rimuove eventuali spazi bianchi e virgolette
+        if (input == null) return "";
+        return input.trim().replace("\"", "");
+    }
 }
