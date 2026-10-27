@@ -5,18 +5,17 @@ import java.util.List;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.time.LocalDate;
 
 public class Utente {
     private String nome;
     private String cognome;
     private String username;
     private String password;
-    private LocalDate dataNascita;
+    private String dataNascita;
     private String domicilio;
     private String ruolo;
 
-    public Utente(String nome, String cognome, String username, String password, LocalDate dataNascita, String domicilio, String ruolo) {
+    public Utente(String nome, String cognome, String username, String password, String dataNascita, String domicilio, String ruolo) {
         this.nome = nome;
         this.cognome = cognome;
         this.username = username;
@@ -58,11 +57,11 @@ public class Utente {
         this.password = password;
     }
 
-    public LocalDate getDataNascita() {
+    public String getDataNascita() {
         return dataNascita;
     }
 
-    public void setDataNascita(LocalDate dataNascita) {
+    public void setDataNascita(String dataNascita) {
         this.dataNascita = dataNascita;
     }
 
@@ -104,7 +103,7 @@ public class GestoreDiUtenti {
                     continue;
                 }
 
-                String[] dati = riga.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+                String[] dati = riga.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1); // Split CSV, considerando le virgolette e mantenendo i campi vuoti
 
                 if (dati.length == 7) {
                     try {
@@ -112,14 +111,11 @@ public class GestoreDiUtenti {
                         String cognome = pulisciStringa(dati[1]);
                         String username = pulisciStringa(dati[2]);
                         String password = pulisciStringa(dati[3]);
-                        
-                        
                         String dataStringa = pulisciStringa(dati[4]);
-                        LocalDate dataNascita = null;
+                        String dataNascita = null;
                         if (!dataStringa.isEmpty()) {
-                            dataNascita = LocalDate.parse(dataStringa); 
+                            dataNascita = dataStringa; 
                         }
-
                         String domicilio = pulisciStringa(dati[5]);
                         String ruolo = pulisciStringa(dati[6]);
 
@@ -143,7 +139,7 @@ public class GestoreDiUtenti {
     
     public static void salvaNuovoUtenteSuCSV(String filePercorso, Utente nuovoUtente) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePercorso, true))) {
-            String dataStr = (nuovoUtente.getDataNascita() != null) ? nuovoUtente.getDataNascita().toString() : "";
+            String dataStr = (nuovoUtente.getDataNascita() != null) ? nuovoUtente.getDataNascita() : "";
 
             String rigaCsv = nuovoUtente.getNome() + "," +
                              nuovoUtente.getCognome() + "," +
@@ -159,7 +155,7 @@ public class GestoreDiUtenti {
         }
     }
 
-    private static String pulisciStringa(String input) {
+    private static String pulisciStringa(String input) { // Rimuove eventuali spazi bianchi e virgolette
         if (input == null) return "";
         return input.trim().replace("\"", "");
     }
