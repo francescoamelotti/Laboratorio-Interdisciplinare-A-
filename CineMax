@@ -23,7 +23,7 @@ public class CineMax {
                     System.out.println("Accesso effettuato con successo. Benvenuto!\nRuolo: " + GestoreDiUtenti.getRuolo() + "\nPremere 1 per cercare proiezioni. \nPremere 2 per visualizzare i dettagli delle proiezioni. \n");
                     int scelta = 0;
                     if (GestoreDiUtenti.getRuolo().equals("cliente")) {
-                        System.out.println("Premere 3 per inserire una prenotazione. \nPremere 4 per visualizzare le prenotazioni. \nPremere 5 per modificare una prenotazione. \nPremere 6 per cancellare una prenotazione. \nPremere 0 per uscire: ");
+                        System.out.println("Premere 3 per inserire una prenotazione. \nPremere 4 per visualizzare le prenotazioni. \nPremere 5 per modificare una prenotazione. \nPremere 6 per cancellare una prenotazione. \nPremere 0 per effettuare il logout: ");
 
                         scelta = scanner.nextInt();
                         do {
@@ -47,10 +47,10 @@ public class CineMax {
                                     GestoreDiPrenotazioni.cancellaPrenotazione();
                                     break;
                                 case 0:
-                                    System.out.println("Uscita dal programma.");
+                                    System.out.println("Logout eseguito con successo.");
                                     break;
                                 default:
-                                    System.out.println("Scelta non valida. Inserire una scelta valida.");
+                                    System.out.println("Scelta non valida. Inserire un altro numero.");
                                     break;
                             }
                         } while (scelta != 0);
@@ -58,7 +58,7 @@ public class CineMax {
                     
                         else if (gestoreDiUtenti.getRuolo().equals("proiezionista"))
                         {
-                            system.out.println("Premere 3 per inserire un film. \nPremere 4 per modificare la data di una proiezione. \nPremere 5 per cancellare una proiezione. \nPremere 0 per uscire: ");
+                            system.out.println("Premere 3 per inserire un film. \nPremere 4 per modificare la data di una proiezione. \nPremere 5 per cancellare una proiezione. \nPremere 0 per effettuare il logout: ");
                             scelta = scanner.nextInt();
                             do switch (scelta) {
                                 case 1:
@@ -77,10 +77,37 @@ public class CineMax {
                                     GestoreDiProiezioni.cancellaProiezione();
                                     break;
                                 case 0:
-                                    System.out.println("Uscita dal programma.");
+                                    System.out.println("Logout eseguito con successo.");
                                     break;
                                 default:
-                                    System.out.println("Scelta non valida. Inserire una scelta valida.");
+                                    System.out.println("Scelta non valida. Inserire un altro numero.");
+                                    break;
+                            } while (scelta != 0);
+
+                        }
+
+                        else 
+                        {
+                            system.out.println("Premere 3 per visualizzare le prenotazioni della data odierna. \nPremere 4 per cercare una prenotazione. \nPremere 0 per effettuare il logout");
+                            scelta = scanner.nextInt();
+                            do switch (scelta) {
+                                case 1:
+                                    GestoreDiProiezioni.ricercaProiezioni();
+                                    break;
+                                case 2:
+                                    GestoreDiProiezioni.visualizzaDettagliProiezioni();
+                                    break;
+                                case 3:
+                                    GestoreDiPrenotazioni.visualizzaPrenotazioniOggi();
+                                    break;
+                                case 4:
+                                    GestoreDiPrenotazioni.cercaPrenotazione();
+                                    break;
+                                case 0:
+                                    System.out.println("Logout eseguito con successo.");
+                                    break;
+                                default:
+                                    System.out.println("Scelta non valida. Inserire un altro numero.");
                                     break;
                             } while (scelta != 0);
 
@@ -89,13 +116,34 @@ public class CineMax {
                     GestoreDiUtenti.gestisciRegistrazione();
                     break;
                 case 3:
-                    System.out.println("Accesso come ospite. Alcune funzionalità potrebbero essere limitate.");
+                    System.out.println("Accesso come ospite. Alcune funzionalità potrebbero essere limitate. \nPremere 1 per cercare proiezioni. \nPremere 2 per visualizzare i dettagli delle proiezioni. \nPremere 3 per registrarsi. \nPremere 0 per tornare al menu principale: ");
+                    scelta = scanner.nextInt();
+                    do {
+                        switch (scelta) {
+                            case 1:
+                                GestoreDiProiezioni.ricercaProiezioni();
+                                break;
+                            case 2:
+                                GestoreDiProiezioni.visualizzaDettagliProiezioni();
+                                break;
+                            case 3:
+                                GestoreDiUtenti.gestisciRegistrazione();
+                                break;
+                            case 0:
+                                System.out.println("Ritorno al menu principale.");
+                                break;
+                            default:
+                                System.out.println("Scelta non valida. Inserire un altro numero.");
+                                break;
+                        }
+                    } while (scelta != 0);
+
                 break;
             case 0:
                 System.out.println("Uscita dal programma.");
                 break;
             default:
-                System.out.println("Scelta non valida. Inserire una scelta valida.");
+                System.out.println("Scelta non valida. Inserire un altro numero.");
                 break;
         } while (scelta != 0);
 
